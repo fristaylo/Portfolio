@@ -1,6 +1,6 @@
 # Портфолио
 
-Это frontend-часть моего портфолио, разработанная с использованием Vue 3, Nuxt, TalwindCSS 4.1, TypeScript, Vite.
+Портфолио, разработанное с использованием Vue 3, Nuxt, TalwindCSS 4.1, TypeScript, Vite.
 
 ## Развертывание и сборка
 
