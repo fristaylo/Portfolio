@@ -16,9 +16,9 @@ const props = defineProps<{
 					:style="{ width: '23px', height: '23px' }"
 				></div>
 
-				<h2 class="font-bold text-gray-600 text-2xl">
+				<h3 class="!font-bold text-gray-600 !text-2xl">
 					{{ props.skill.title }}
-				</h2>
+				</h3>
 			</div>
 			<p>{{ props.skill.description }}</p>
 			<div class="flex items-center gap-2">

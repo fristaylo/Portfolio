@@ -12,7 +12,7 @@ const props = defineProps<{
 <template>
 	<NuxtLink :to="{ name: 'projects-id', params: { id: project.id } }">
 		<Block :isLink="true" class="h-full flex flex-col">
-			<h3 class="text-2xl font-bold mb-5">{{ project.title }}</h3>
+			<h3 class="mb-5">{{ project.title }}</h3>
 
 			<Image
 				:src="project.imageUrl"

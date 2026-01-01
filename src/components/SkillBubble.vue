@@ -12,7 +12,7 @@ const skill = skills.find((s) => s.id === props.id);
 	<NuxtLink :to="{ name: 'skills-id', params: { id: props.id } }">
 		<div
 			v-if="skill"
-			class="flex px-3 py-1 gap-2 border-3 rounded-lg items-center"
+			class="flex px-3 py-1 gap-2 border-3 rounded-2xl items-center"
 			:style="{ borderColor: skill.color }"
 		>
 			<div v-html="skill.icon"></div>
