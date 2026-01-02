@@ -54,9 +54,9 @@ watch(
 			v-if="projectData.link"
 			:href="projectData.link"
 			target="_blank"
-			class="text-blue-500 hover:underline"
+			class="text-md text-blue-500 font-semibold hover:text-blue-800 duration-200"
 		>
-			Посмотреть проект
+			Перейти на сайт проекта
 		</a>
 	</div>
 	<div v-else>

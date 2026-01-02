@@ -6,7 +6,7 @@ import FooterBlock from '../src/components/FooterBlock.vue';
 <template>
 	<div class="flex flex-col min-h-screen bg-gray-100">
 		<HeaderBlock />
-		<main class="container mx-auto p-7 flex-grow">
+		<main class="container mx-auto p-3 flex-grow">
 			<slot />
 		</main>
 		<FooterBlock />

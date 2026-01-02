@@ -7,9 +7,6 @@ const route = useRoute();
 const skillId = route.params.id as string;
 
 const skillData = skills.find((skill) => skill.id === skillId);
-
-if (!skillData) {
-}
 </script>
 
 <template>
