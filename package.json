@@ -10,6 +10,8 @@
 		"postinstall": "nuxt prepare"
 	},
 	"dependencies": {
+		"@fontsource/open-sans": "^5.2.7",
+		"@fontsource/prosto-one": "^5.2.8",
 		"@heroicons/vue": "^2.2.0",
 		"@nuxtjs/tailwindcss": "^7.0.0-beta.0",
 		"@tailwindcss/vite": "^4.1.10",
