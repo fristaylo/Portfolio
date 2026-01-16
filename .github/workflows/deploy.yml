@@ -1,0 +1,76 @@
+name: Nuxt Docker Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  APP_NAME: portfolio-front
+  CONTAINER_PORT: 3000
+  EXTERNAL_PORT: 80
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image to GHCR
+        id: docker_build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/${{ env.APP_NAME }}:latest
+            ghcr.io/${{ github.repository_owner }}/${{ env.APP_NAME }}:${{ github.sha }}
+
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@v1.0.1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            APP_NAME=${{ env.APP_NAME }}
+            IMAGE_TAG=ghcr.io/${{ github.repository_owner }}/$APP_NAME:latest
+            CONTAINER_PORT=${{ env.CONTAINER_PORT }}
+            EXTERNAL_PORT=${{ env.EXTERNAL_PORT }}
+            CONTAINER_NAME=$APP_NAME
+
+            echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u ${{ secrets.SERVER_USER }} --password-stdin
+
+            docker pull $IMAGE_TAG
+
+            if [ "$(docker ps -a -q -f name=$CONTAINER_NAME)" ]; then
+              docker stop $CONTAINER_NAME
+              docker rm $CONTAINER_NAME
+            fi
+
+            docker run -d \
+              --name $CONTAINER_NAME \
+              -p $EXTERNAL_PORT:$CONTAINER_PORT \
+              --restart always \
+              $IMAGE_TAG
+
+            docker image prune -f
+
+            echo "Deployment finished successfully."
