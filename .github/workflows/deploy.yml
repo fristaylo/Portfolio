@@ -40,8 +40,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner | lower }}/${{ env.APP_NAME }}:latest
-            ghcr.io/${{ github.repository_owner | lower }}/${{ env.APP_NAME }}:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/portfolio-front:latest
+            ghcr.io/${{ github.repository_owner }}/portfolio-front:${{ github.sha }}
 
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@v1.0.1
@@ -51,7 +51,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             APP_NAME=${{ env.APP_NAME }}
-            IMAGE_TAG=ghcr.io/${{ github.repository_owner | lower }}/$APP_NAME:latest
+            IMAGE_TAG=ghcr.io/${{ github.repository_owner }}/portfolio-front:latest
             CONTAINER_PORT=${{ env.CONTAINER_PORT }}
             EXTERNAL_PORT=${{ env.EXTERNAL_PORT }}
             CONTAINER_NAME=$APP_NAME
