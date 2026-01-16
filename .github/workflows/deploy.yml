@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  APP_NAME: portfolio-front
+  APP_NAME: portfolio
   CONTAINER_PORT: 3000
   EXTERNAL_PORT: 80
 
